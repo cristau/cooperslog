@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from django.
+# from django.http import HttpResponse
 
-# Create your views here.
-
-# def index(request):
-#     return httpRequest
+def log_page(request):
+    return render(request, 'mylogapp/index.html', {})
