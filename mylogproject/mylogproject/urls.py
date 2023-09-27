@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from mylogapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('log/', include('mylogapp.urls'))
+    path('log/', views.log_page, name='log_page'),
+    path('submit_activity', views.submit_activity, name='submit_activity')
 ]
