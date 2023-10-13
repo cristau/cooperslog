@@ -19,6 +19,21 @@
             background-color: #551f19;
             color: white;
         }
+        .btn-primary {
+            background-color: rgb(255, 255, 255);
+            color: black;
+            border-color: #551f19;
+        }
+        .btn-primary:hover {
+            background: rgb(71, 71, 71);
+            border-color: #551f19;
+        }
+        .form-control:focus {
+            border-color: none;
+            outline: none;
+            box-shadow: none;
+            border: none;
+        }
     </style>
 
 
@@ -58,7 +73,7 @@
                     <br>
                     <div class="mb-3">
                         <label for="activity" class="form-label">Activity</label>
-                        <select class="form-select" id="activity" required>
+                        <select name="activity" class="form-select" id="activity" required>
                             <option value="" disabled selected>Select an activity</option>
                             <!-- Add your activity options here -->
                             <option value="option1">Option 1</option>
@@ -67,23 +82,23 @@
                     </div>
                     <div class="mb-3">
                         <label for="details" class="form-label">Details</label>
-                        <input type="text" class="form-control" id="details" placeholder="Enter details">
+                        <input name="details" type="text" class="form-control" id="details" placeholder="Enter details">
                     </div>
                     <div class="mb-3">
                         <label for="startTime" class="form-label">Start Time</label>
-                        <input type="datetime-local" class="form-control" id="startTime">
+                        <input name="start_time" type="datetime-local" class="form-control" id="startTime">
                     </div>
                     <div class="mb-3">
                         <label for="endTime" class="form-label">End Time</label>
-                        <input type="datetime-local" class="form-control" id="endTime">
+                        <input name="end_time" type="datetime-local" class="form-control" id="endTime">
                     </div>
                     <div class="mb-3">
                         <label for="suckScore" class="form-label">Suck Score (1-10)</label>
-                        <input type="number" class="form-control" id="suckScore" min="1" max="10">
+                        <input name="suck_score" type="number" class="form-control" id="suckScore" min="1" max="10">
                     </div>
                     <div class="mb-3">
                         <label for="category" class="form-label">Category</label>
-                        <select class="form-select" id="category" required>
+                        <select name="category" class="form-select" id="category" required>
                             <option value="" disabled selected>Select a category</option>
                             <!-- Add your category options here -->
                             <option value="category1">Category 1</option>
@@ -92,15 +107,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="bodyScore" class="form-label">Body Score (1-100)</label>
-                        <input type="number" class="form-control" id="bodyScore" min="1" max="100">
+                        <input name="body_score" type="number" class="form-control" id="bodyScore" min="1" max="100">
                     </div>
                     <div class="mb-3">
                         <label for="aches" class="form-label">Aches</label>
-                        <input type="text" class="form-control" id="aches" placeholder="Enter any aches">
+                        <input name="aches" type="text" class="form-control" id="aches" placeholder="Enter any aches">
                     </div>
                     <div class="mb-3">
                         <label for="injuries" class="form-label">Injuries</label>
-                        <input type="text" class="form-control" id="injuries" placeholder="Enter any injuries">
+                        <input name="injuries" type="text" class="form-control" id="injuries" placeholder="Enter any injuries">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
