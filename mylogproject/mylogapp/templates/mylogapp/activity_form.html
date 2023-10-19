@@ -67,14 +67,24 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form>
+                <form method="post" action="{% url 'success' %}">
+                    {% csrf_token %}
                     <h1>Activity Form</h1>
                     <h5>Please input an activity below</h5>
                     <br>
                     <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select name="category" class="form-select" id="category" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <!-- Add your category options here -->
+                            <option value="category1">Category 1</option>
+                            <option value="category2">Category 2</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="activity" class="form-label">Activity</label>
-                        <select name="activity" class="form-select" id="activity" required>
-                            <option value="" disabled selected>Select an activity</option>
+                        <select name="activity" class="form-select" id="activity" disabled required>
+                            <option value="">Select a category first</option>
                             <!-- Add your activity options here -->
                             <option value="option1">Option 1</option>
                             <option value="option2">Option 2</option>
@@ -97,15 +107,6 @@
                         <input name="suck_score" type="number" class="form-control" id="suckScore" min="1" max="10">
                     </div>
                     <div class="mb-3">
-                        <label for="category" class="form-label">Category</label>
-                        <select name="category" class="form-select" id="category" required>
-                            <option value="" disabled selected>Select a category</option>
-                            <!-- Add your category options here -->
-                            <option value="category1">Category 1</option>
-                            <option value="category2">Category 2</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label for="bodyScore" class="form-label">Body Score (1-100)</label>
                         <input name="body_score" type="number" class="form-control" id="bodyScore" min="1" max="100">
                     </div>
@@ -124,3 +125,32 @@
     </div>
 </body>
 </html>
+
+<script>
+        document.getElementById("category").addEventListener("change", function() {
+        const category = this.value;
+        const activityDropdown = document.getElementById("activity");
+        
+        // Clear the current options in the city dropdown
+        activity.innerHTML = '<option value="">Select a category first</option>';
+        
+        // Define city options based on the selected country
+        const activityOptions = {
+            Recovery: ["Ice Bath", "Sauna", "Cold Shower", "Stretch"],
+            Workout: ["Run", "Weightlifting", "Cycling", "Walk"],
+            Mental: ["Meditate"]
+        };
+
+        if (category && activityOptions[category]) {
+            activityDropdown.removeAttribute("disabled");
+            activityOptions[category].forEach(function(activity) {
+                const option = document.createElement("option");
+                option.value = activity;
+                option.text = activity;
+                activityDropdown.appendChild(option);
+            });
+        } else {
+            activityDropdown.setAttribute("disabled", "disabled");
+        }
+    });
+</script>

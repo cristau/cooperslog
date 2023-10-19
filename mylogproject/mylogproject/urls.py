@@ -21,5 +21,7 @@ from mylogapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('log/', views.log_page, name='log_page'),
-    path('submit_activity', views.submit_activity, name='submit_activity')
+    path('submit_activity/', views.submit_activity, name='submit_activity'),
+    # path('success/', views.success, name='success'),
+    path('mylogapp/', include('mylogapp.urls')),
 ]
