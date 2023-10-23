@@ -1,0 +1,22 @@
+body {
+    background-color: #551f19;
+    color: white;
+}
+
+.btn-primary {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border-color: #551f19;
+}
+
+.btn-primary:hover {
+    background: rgb(71, 71, 71);
+    border-color: #551f19;
+}
+
+.form-control:focus {
+    border-color: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
+}

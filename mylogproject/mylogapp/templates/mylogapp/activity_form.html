@@ -14,33 +14,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+TNFf5HniJOPx2L+aR7iYL3a2pYj3w9xP+5G5S+JUOHZI5W5" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <style>
-        body {
-            background-color: #551f19;
-            color: white;
-        }
-        .btn-primary {
-            background-color: rgb(255, 255, 255);
-            color: black;
-            border-color: #551f19;
-        }
-        .btn-primary:hover {
-            background: rgb(71, 71, 71);
-            border-color: #551f19;
-        }
-        .form-control:focus {
-            border-color: none;
-            outline: none;
-            box-shadow: none;
-            border: none;
-        }
-    </style>
+    <!-- JS Files -->
 
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'mylogapp/css/activity_form.css' %}">
 
 </head>
 <body>
 
-    <img src="{% static 'mylogapp/log_image.png' %}" alt="Logo" style="position: absolute; top: 10px; right: 10px; width: 50px; height: 50px; z-index: 1;">
+    <img src="{% static 'mylogapp/images/log_image.png' %}" alt="Logo" style="position: absolute; top: 10px; right: 10px; width: 50px; height: 50px; z-index: 1;">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -70,25 +52,34 @@
                 <form method="post" action="{% url 'success' %}">
                     {% csrf_token %}
                     <h1>Activity Form</h1>
-                    <h5>Please input an activity below</h5>
                     <br>
                     <div class="mb-3">
-                        <label for="category" class="form-label">Category</label>
-                        <select name="category" class="form-select" id="category" required>
+                        <label for="category" class="form-label">Category</label><br>
+                        <select name="category" id="category" class="form-control" required>
                             <option value="" disabled selected>Select a category</option>
-                            <!-- Add your category options here -->
-                            <option value="category1">Category 1</option>
-                            <option value="category2">Category 2</option>
+                            <option value="recovery">Recovery</option>
+                            <option value="workout">Workout</option>
+                            <option value="mental_health">Mental Health</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="activity" class="form-label">Activity</label>
-                        <select name="activity" class="form-select" id="activity" disabled required>
-                            <option value="">Select a category first</option>
-                            <!-- Add your activity options here -->
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
+                        <label for="activity" class="form-label">Select Activity</label>
+                        <select name="activity" id="activity" class="form-control" required>
+                            <option value="" selected disabled>Select a category first</option>
+                            <!-- Subcategory options will be populated here dynamically -->
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="scene" class="form-label">Indoor or Outdoor</label>
+                        <select name="scene" type="text" class="form-control" id="scene" required>
+                            <option value="" selected disabled>Select One</option>
+                            <option value="indoor">Indoor</option>
+                            <option value="outdoor">Outdoor</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="distance" class="form-label">Distance (miles)</label>
+                        <input name="distance" type="number" class="form-control" id="distance" placeholder="">
                     </div>
                     <div class="mb-3">
                         <label for="details" class="form-label">Details</label>
@@ -96,19 +87,23 @@
                     </div>
                     <div class="mb-3">
                         <label for="startTime" class="form-label">Start Time</label>
-                        <input name="start_time" type="datetime-local" class="form-control" id="startTime">
+                        <input name="start_time" type="datetime-local" class="form-control" id="startTime" required >
                     </div>
                     <div class="mb-3">
                         <label for="endTime" class="form-label">End Time</label>
-                        <input name="end_time" type="datetime-local" class="form-control" id="endTime">
+                        <input name="end_time" type="datetime-local" class="form-control" id="endTime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="intended_suck_score" class="form-label">Intended Suck Score (1-10)</label>
+                        <input name="intended_suck_score" type="number" class="form-control" id="intended_suck_score" min="1" max="10">
                     </div>
                     <div class="mb-3">
                         <label for="suckScore" class="form-label">Suck Score (1-10)</label>
-                        <input name="suck_score" type="number" class="form-control" id="suckScore" min="1" max="10">
+                        <input name="suck_score" type="number" class="form-control" id="suckScore" min="1" max="10" required>
                     </div>
                     <div class="mb-3">
-                        <label for="bodyScore" class="form-label">Body Score (1-100)</label>
-                        <input name="body_score" type="number" class="form-control" id="bodyScore" min="1" max="100">
+                        <label for="bodyScore" class="form-label">Current Body Score (1-100)</label>
+                        <input name="body_score" type="number" class="form-control" id="bodyScore" min="1" max="100" required>
                     </div>
                     <div class="mb-3">
                         <label for="aches" class="form-label">Aches</label>
@@ -126,31 +121,4 @@
 </body>
 </html>
 
-<script>
-        document.getElementById("category").addEventListener("change", function() {
-        const category = this.value;
-        const activityDropdown = document.getElementById("activity");
-        
-        // Clear the current options in the city dropdown
-        activity.innerHTML = '<option value="">Select a category first</option>';
-        
-        // Define city options based on the selected country
-        const activityOptions = {
-            Recovery: ["Ice Bath", "Sauna", "Cold Shower", "Stretch"],
-            Workout: ["Run", "Weightlifting", "Cycling", "Walk"],
-            Mental: ["Meditate"]
-        };
-
-        if (category && activityOptions[category]) {
-            activityDropdown.removeAttribute("disabled");
-            activityOptions[category].forEach(function(activity) {
-                const option = document.createElement("option");
-                option.value = activity;
-                option.text = activity;
-                activityDropdown.appendChild(option);
-            });
-        } else {
-            activityDropdown.setAttribute("disabled", "disabled");
-        }
-    });
-</script>
+<script type="text/javascript" src="{% static 'mylogapp/js/activity_form.js' %}"></script>
